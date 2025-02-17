@@ -32,7 +32,7 @@ export default function QuestionList({ session }: { session: Session }) {
   }, [supabase]);
 
   const addQuestion = async (taskText: string) => {
-    let task = taskText.trim();
+    const task = taskText.trim();
     if (task.length) {
       const { data: todo, error } = await supabase
         .from('todos')
@@ -125,6 +125,7 @@ const Question = ({ question, onDelete }: { question: Question; onDelete: () => 
         <div>
           <input
             className="cursor-pointer"
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             onChange={(e) => toggle()}
             type="checkbox"
             checked={isCompleted ? true : false}
