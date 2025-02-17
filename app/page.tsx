@@ -1,7 +1,7 @@
-import { SessionContextProvider } from '@supabase/auth-helpers-react';
+import { SessionContextProvider, useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
 import Head from 'next/head';
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
+import { Auth } from '@supabase/auth-ui-react';
+import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '@/lib/initSupabase';
 import QuestionList from '@/components/QuestionList';
 
