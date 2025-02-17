@@ -1,6 +1,12 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { PropsWithChildren, Suspense } from 'react';
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import { getURL } from '@/utils/helpers';
+import Footer from '@/components/ui/Footer';
+//import Navbar from '@/components/ui/Navbar';
+
+import './globals.css';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,22 +18,33 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const title = "Bioverse App";
+const description = "Teste de adminisao";
+
 export const metadata: Metadata = {
-  title: "Bioverse App",
-  description: "Teste de adminisao",
+  metadataBase: new URL(getURL()),
+  title: title,
+  description: description,
+  openGraph: {
+    title: title,
+    description: description
+  }
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+      {/*<Navbar />*/}
+      <main
+          id="skip"
+          className="min-h-[calc(100dvh-4rem)] md:min-h[calc(100dvh-5rem)]"
+        >
         {children}
+	    </main>
+        <Footer />
       </body>
     </html>
   );
