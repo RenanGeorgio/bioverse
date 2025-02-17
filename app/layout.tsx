@@ -2,8 +2,8 @@ import { PropsWithChildren, Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { getURL } from '@/utils/helpers';
-import Footer from '@/components/ui/Footer';
-//import Navbar from '@/components/ui/Navbar';
+import Footer from '@/components/Footer';
+//import Navbar from '@/components/Navbar';
 
 import './globals.css';
 
