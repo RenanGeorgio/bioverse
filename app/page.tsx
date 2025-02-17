@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
 import { supabase } from '@/lib/initSupabase';
-import TodoList from '@/components/TodoList';
+import QuestionList from '@/components/QuestionList';
 
 import '@/styles/app.css';
 
@@ -37,7 +37,7 @@ function Home() {
               className="w-full h-full flex flex-col justify-center items-center p-4"
               style={{ minWidth: 250, maxWidth: 600, margin: 'auto' }}
             >
-              <TodoList session={session} />
+              <QuestionList session={session} />
               <button
                 className="btn-black w-full mt-12"
                 onClick={async () => {
