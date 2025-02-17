@@ -1,5 +1,3 @@
-"use client"
-
 import { useEffect, useState } from 'react';
 import { Session, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { Database } from '@/lib/schema';
