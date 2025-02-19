@@ -1,25 +1,23 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import { Session, useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { User } from '@supabase/supabase-js';
 import { Database } from '@/lib/schema';
+import { getQuestions, addQuestions, updateQuestion } from '@/lib/supabase/queries';
 
 type Question = Database['public']['Tables']['todos']['Row']
 
-export default function QuestionList({ session }: { session: Session }) {
+export default function QuestionList({ user }: { user: User }) {
   const supabase = useSupabaseClient<Database>();
+
   const [questions, setQuestions] = useState<Question[]>([]);
   const [newTaskText, setNewTaskText] = useState('');
   const [errorText, setErrorText] = useState('');
 
-  const user = session.user;
-
   useEffect(() => {
     const fetchQuestions = async () => {
-      const { data: questions, error } = await supabase
-        .from('todos')
-        .select('*')
-        .order('id', { ascending: true })
+      const { questions, error } = await getQuestions(supabase);
 
       if (error) {
         console.log('error', error);
@@ -34,11 +32,7 @@ export default function QuestionList({ session }: { session: Session }) {
   const addQuestion = async (taskText: string) => {
     const task = taskText.trim();
     if (task.length) {
-      const { data: todo, error } = await supabase
-        .from('todos')
-        .insert({ task, user_id: user.id })
-        .select()
-        .single()
+      const { todo, error } = await addQuestions(supabase, task, user.id);
 
       if (error) {
         setErrorText(error.message);
@@ -100,13 +94,7 @@ const Question = ({ question, onDelete }: { question: Question; onDelete: () => 
 
   const toggle = async () => {
     try {
-      const { data } = await supabase
-        .from('todos')
-        .update({ is_complete: !isCompleted })
-        .eq('id', question.id)
-        .throwOnError()
-        .select()
-        .single()
+      const { data } = await updateQuestion(supabase, isCompleted, question.id)
 
       if (data) {
         setIsCompleted(data.is_complete);
