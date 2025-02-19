@@ -19,7 +19,7 @@ export const getUser = cache(async (supabase: SupabaseClient) => {
   return user;
 });
 
-export const getQuestions: Promise<QuestionsProps> = cache(async (supabase: SupabaseClient) => {
+export const getQuestions: QuestionsProps = cache(async (supabase: SupabaseClient) => {
   const { data: questions, error } = await supabase
     .from('todos')
     .select('*')
