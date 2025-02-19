@@ -18,16 +18,14 @@ export const createClient = () => {
           try {
             cookieStore.set({ name, value, ...options });
           } catch (error) {
-            // If the set method is called from a Server Component, an error may occur
-            // This can be ignored if there is middleware refreshing user sessions
+            console.log(error);
           }
         },
         remove(name: string, options: CookieOptions) {
           try {
             cookieStore.set({ name, value: '', ...options });
           } catch (error) {
-            // If the remove method is called from a Server Component, an error may occur
-            // This can be ignored if there is middleware refreshing user sessions
+            console.log(error);
           }
         }
       }
