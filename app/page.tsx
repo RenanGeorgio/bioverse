@@ -64,7 +64,7 @@ function Home({ supabase, client }: Props) {
   
 
 export default async function App() {
-  const supabase = createClient();
+  const supabase = await createClient();
   
   const {
     data: { user }
