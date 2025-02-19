@@ -19,14 +19,14 @@ export const getUser = cache(async (supabase: SupabaseClient) => {
   return user;
 });
 
-export const getQuestions: QuestionsProps = cache(async (supabase: SupabaseClient) => {
+export const getQuestions: QuestionsProps = async (supabase: SupabaseClient) => {
   const { data: questions, error } = await supabase
     .from('todos')
     .select('*')
     .order('id', { ascending: true });
 
   return { questions, error };
-});
+};
 
 export const addQuestions = async (supabase: SupabaseClient, task: string, id: string | number) => {
     const { data: todo, error } = await supabase
