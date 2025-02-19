@@ -91,7 +91,7 @@ export default function QuestionList({ user }: { user: User }) {
 
 const Question = ({ question, onDelete }: { question: Question; onDelete: () => void }) => {
   const supabase = createClient();
-  const [isCompleted, setIsCompleted] = useState(question.is_complete);
+  const [isCompleted, setIsCompleted] = useState<boolean>(question.is_complete);
 
   const toggle = async () => {
     try {
