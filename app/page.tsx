@@ -68,7 +68,7 @@ export default async function App() {
 
   const {
     data: { user }
-    // @ts-ignore
+    // @ts-expect-error
   } = await supabase.auth.getUser();
 
   return (
