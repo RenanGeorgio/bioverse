@@ -96,7 +96,7 @@ const Question = ({ question, onDelete }: { question: Question; onDelete: () => 
   const toggle = () => {
     const id: string | number = question.id;
 
-    const getUpdate = async (id) => {
+    const getUpdate = async (id: string | number) => {
       try {
         const { data } = await updateQuestion(supabase, isCompleted, id);
   
@@ -109,7 +109,7 @@ const Question = ({ question, onDelete }: { question: Question; onDelete: () => 
     }
     
     if (id) {
-      getUpdate();
+      getUpdate(id);
     }
   }
 
