@@ -5,7 +5,7 @@ import { Database } from '@/lib/schema';
 type Question = Database['public']['Tables']['todos']['Row'];
 
 type Props = {
-    questions: Question[];
+    questions: Question[] | null;
     error?: PostgrestError | null;
 }
 
