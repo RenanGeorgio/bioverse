@@ -1,15 +1,16 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { User } from '@supabase/supabase-js';
+import { createClient } from '@/lib/supabase/client';
 import { Database } from '@/lib/schema';
 import { getQuestions, addQuestions, updateQuestion } from '@/lib/supabase/queries';
 
 type Question = Database['public']['Tables']['todos']['Row']
 
+
 export default function QuestionList({ user }: { user: User }) {
-  const supabase = useSupabaseClient<Database>();
+  const supabase = createClient();
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [newTaskText, setNewTaskText] = useState('');
@@ -89,7 +90,7 @@ export default function QuestionList({ user }: { user: User }) {
 }
 
 const Question = ({ question, onDelete }: { question: Question; onDelete: () => void }) => {
-  const supabase = useSupabaseClient<Database>();
+  const supabase = createClient();
   const [isCompleted, setIsCompleted] = useState(question.is_complete);
 
   const toggle = async () => {
