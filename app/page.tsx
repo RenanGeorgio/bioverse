@@ -10,7 +10,7 @@ import QuestionList from '@/components/QuestionList';
 import '@/styles/app.css';
 
 interface Props {
-  supabase: SupabaseClient;
+  supabase: Promise<SupabaseClient>;
   client: User | undefined | null;
   children?: React.ReactNode
 }
@@ -64,7 +64,7 @@ function Home({ supabase, client }: Props) {
   
 
 export default async function App() {
-  const supabase = await createClient();
+  const supabase = createClient();
   
   const {
     data: { user }
