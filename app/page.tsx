@@ -65,10 +65,11 @@ function Home({ supabase, client }: Props) {
 
 export default async function App() {
   const supabase = createClient();
-
+  
   const {
     data: { user }
-    // @ts-expect-error
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
   } = await supabase.auth.getUser();
 
   return (
