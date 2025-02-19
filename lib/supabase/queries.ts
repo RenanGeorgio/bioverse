@@ -1,5 +1,5 @@
 import { cache } from 'react';
-import { SupabaseClient, PostgresqlError } from '@supabase/supabase-js';
+import { SupabaseClient, PostgrestError } from '@supabase/supabase-js';
 import { Database } from '@/lib/schema';
 
 type Question = Database['public']['Tables']['todos']['Row']
