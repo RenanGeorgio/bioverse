@@ -1,5 +1,13 @@
 import { cache } from 'react';
 import { SupabaseClient } from '@supabase/supabase-js';
+import { Database } from '@/lib/schema';
+
+type Question = Database['public']['Tables']['todos']['Row']
+
+type QuestionsProps = {
+    questions: Question[];
+    error?: any;
+}
 
 
 export const getUser = cache(async (supabase: SupabaseClient) => {
@@ -10,7 +18,7 @@ export const getUser = cache(async (supabase: SupabaseClient) => {
   return user;
 });
 
-export const getQuestions = cache(async (supabase: SupabaseClient) => {
+export const getQuestions: Promise<QuestionsProps> = cache(async (supabase: SupabaseClient) => {
   const { data: questions, error } = await supabase
     .from('todos')
     .select('*')
