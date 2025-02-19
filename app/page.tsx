@@ -4,6 +4,7 @@ import { User } from '@supabase/supabase-js';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { createClient } from '@/lib/supabase/server';
+import { supabase as supabaseClient } from '@/lib/supabase/init';
 //import { supabase } from '@/lib/initSupabase';
 import QuestionList from '@/components/QuestionList';
 
@@ -33,7 +34,7 @@ function Home({ supabase, client }: Props) {
                 <span className="font-sans text-4xl text-center pb-2 mb-1 border-b mx-4 align-center">
                   Login
                 </span>
-                <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="dark" />
+                <Auth supabaseClient={supabaseClient} appearance={{ theme: ThemeSupa }} theme="dark" />
               </div>
             </div>
           </div>
