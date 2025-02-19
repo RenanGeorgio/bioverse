@@ -23,7 +23,9 @@ export default function QuestionList({ user }: { user: User }) {
       if (error) {
         console.log('error', error);
       } else {
-        setQuestions(questions);
+        if (questions) {
+          setQuestions(questions);
+        }
       }
     }
 
