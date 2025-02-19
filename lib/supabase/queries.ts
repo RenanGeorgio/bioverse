@@ -38,7 +38,7 @@ export const addQuestions = async (supabase: SupabaseClient, task: string, id: s
     return { todo, error };
 };
 
-export const updateQuestion = cache(async (supabase: SupabaseClient, isCompleted: boolean, id: string | number) => {
+export const updateQuestion = cache(async (supabase: SupabaseClient, isCompleted: boolean | null, id: string | number) => {
     const { data } = await supabase
         .from('todos')
         .update({ is_complete: !isCompleted })

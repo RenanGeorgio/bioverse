@@ -91,11 +91,11 @@ export default function QuestionList({ user }: { user: User }) {
 
 const Question = ({ question, onDelete }: { question: Question; onDelete: () => void }) => {
   const supabase = createClient();
-  const [isCompleted, setIsCompleted] = useState<boolean>(question.is_complete);
+  const [isCompleted, setIsCompleted] = useState<boolean | null>(question.is_complete);
 
   const toggle = async () => {
     try {
-      const { data } = await updateQuestion(supabase, isCompleted, question.id)
+      const { data } = await updateQuestion(supabase, isCompleted, question.id);
 
       if (data) {
         setIsCompleted(data.is_complete);
@@ -138,7 +138,7 @@ const Question = ({ question, onDelete }: { question: Question; onDelete: () => 
         </button>
       </div>
     </li>
-  )
+  );
 }
 
 const Alert = ({ text }: { text: string }) => (
