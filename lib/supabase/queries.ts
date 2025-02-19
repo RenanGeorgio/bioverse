@@ -4,11 +4,10 @@ import { Database } from '@/lib/schema';
 
 type Question = Database['public']['Tables']['todos']['Row']
 
-type QuestionsProps = (supabase: SupabaseClient) => {
+type QuestionsProps = (supabase: SupabaseClient) => Promise<{
     questions: Question[];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    error?: any;
-}
+    error?: PostgrestError | null;
+}>
 
 
 export const getUser = cache(async (supabase: SupabaseClient) => {

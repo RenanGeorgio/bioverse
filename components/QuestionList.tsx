@@ -93,15 +93,23 @@ const Question = ({ question, onDelete }: { question: Question; onDelete: () => 
   const supabase = createClient();
   const [isCompleted, setIsCompleted] = useState<boolean | null>(question.is_complete);
 
-  const toggle = async () => {
-    try {
-      const { data } = await updateQuestion(supabase, isCompleted, question.id);
+  const toggle = () => {
+    const id: string | number = question.id;
 
-      if (data) {
-        setIsCompleted(data.is_complete);
+    const getUpdate = async (id) => {
+      try {
+        const { data } = await updateQuestion(supabase, isCompleted, id);
+  
+        if (data) {
+          setIsCompleted(data.is_complete);
+        }
+      } catch (error) {
+        console.log('error', error);
       }
-    } catch (error) {
-      console.log('error', error);
+    }
+    
+    if (id) {
+      getUpdate();
     }
   }
 
