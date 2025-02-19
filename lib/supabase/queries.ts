@@ -2,12 +2,14 @@ import { cache } from 'react';
 import { SupabaseClient, PostgrestError } from '@supabase/supabase-js';
 import { Database } from '@/lib/schema';
 
-type Question = Database['public']['Tables']['todos']['Row']
+type Question = Database['public']['Tables']['todos']['Row'];
 
-type QuestionsProps = (supabase: SupabaseClient) => Promise<{
+type Props = {
     questions: Question[];
     error?: PostgrestError | null;
-}>
+}
+
+type QuestionsProps = (supabase: SupabaseClient) => Promise<Props>
 
 
 export const getUser = cache(async (supabase: SupabaseClient) => {
