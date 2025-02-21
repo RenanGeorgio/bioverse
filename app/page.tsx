@@ -1,8 +1,8 @@
 import Head from 'next/head';
-//import { Auth } from '@supabase/auth-ui-react';
+import { Auth } from '@supabase/auth-ui-react';
 import { User } from '@supabase/supabase-js';
 import { SupabaseClient } from '@supabase/supabase-js';
-//import { ThemeSupa } from '@supabase/auth-ui-shared';
+import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { createClient } from '@/lib/supabase/server';
 import { supabase as supabaseClient } from '@/lib/supabase/init';
 //import { supabase } from '@/lib/initSupabase';
@@ -27,24 +27,32 @@ function Home({ client }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="w-full h-full bg-200">
-        <div
-          className="w-full h-full flex flex-col justify-center items-center p-4"
-          style={{ minWidth: 250, maxWidth: 600, margin: 'auto' }}
-        >
-          <QuestionList user={client} />
-          <button
-            className="btn-black w-full mt-12"
-            onClick={async () => {
-              const { error } = await supabaseClient.auth.signOut();
-
-              if (error) {
-                console.log('Error logging out:', error.message);
-              }
-            }}
+        {client && (
+          <div
+            className="w-full h-full flex flex-col justify-center items-center p-4"
+            style={{ minWidth: 250, maxWidth: 600, margin: 'auto' }}
           >
-            Logout
-          </button>
-        </div>
+            <QuestionList user={client} />
+            <button
+              className="btn-black w-full mt-12"
+              onClick={async () => {
+                const { error } = await supabaseClient.auth.signOut();
+
+                if (error) {
+                  console.log('Error logging out:', error.message);
+                }
+              }}
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
+          <div
+            className="w-full h-full flex flex-col justify-center items-center p-4"
+            style={{ minWidth: 250, maxWidth: 600, margin: 'auto' }}
+          >
+          </div>
+        )}
       </div>
     </>
   );
