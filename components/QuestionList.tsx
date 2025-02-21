@@ -1,30 +1,31 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import { Session, useSupabaseClient } from '@supabase/auth-helpers-react';
+import { User } from '@supabase/supabase-js';
+import { createClient } from '@/lib/supabase/client';
 import { Database } from '@/lib/schema';
+import { getQuestions, addQuestions, updateQuestion } from '@/lib/supabase/queries';
 
 type Question = Database['public']['Tables']['todos']['Row']
 
-export default function QuestionList({ session }: { session: Session }) {
-  const supabase = useSupabaseClient<Database>();
+
+export default function QuestionList({ user }: { user: User }) {
+  const supabase = createClient();
+
   const [questions, setQuestions] = useState<Question[]>([]);
   const [newTaskText, setNewTaskText] = useState('');
   const [errorText, setErrorText] = useState('');
 
-  const user = session.user;
-
   useEffect(() => {
     const fetchQuestions = async () => {
-      const { data: questions, error } = await supabase
-        .from('todos')
-        .select('*')
-        .order('id', { ascending: true })
+      const { questions, error } = await getQuestions(supabase);
 
       if (error) {
         console.log('error', error);
       } else {
-        setQuestions(questions);
+        if (questions) {
+          setQuestions(questions);
+        }
       }
     }
 
@@ -34,11 +35,7 @@ export default function QuestionList({ session }: { session: Session }) {
   const addQuestion = async (taskText: string) => {
     const task = taskText.trim();
     if (task.length) {
-      const { data: todo, error } = await supabase
-        .from('todos')
-        .insert({ task, user_id: user.id })
-        .select()
-        .single()
+      const { todo, error } = await addQuestions(supabase, task, user.id);
 
       if (error) {
         setErrorText(error.message);
@@ -95,24 +92,26 @@ export default function QuestionList({ session }: { session: Session }) {
 }
 
 const Question = ({ question, onDelete }: { question: Question; onDelete: () => void }) => {
-  const supabase = useSupabaseClient<Database>();
-  const [isCompleted, setIsCompleted] = useState(question.is_complete);
+  const supabase = createClient();
+  const [isCompleted, setIsCompleted] = useState<boolean | null>(question.is_complete);
 
-  const toggle = async () => {
-    try {
-      const { data } = await supabase
-        .from('todos')
-        .update({ is_complete: !isCompleted })
-        .eq('id', question.id)
-        .throwOnError()
-        .select()
-        .single()
+  const toggle = () => {
+    const id: string | number = question.id;
 
-      if (data) {
-        setIsCompleted(data.is_complete);
+    const getUpdate = async (id: string | number) => {
+      try {
+        const { data } = await updateQuestion(supabase, isCompleted, id);
+  
+        if (data) {
+          setIsCompleted(data.is_complete);
+        }
+      } catch (error) {
+        console.log('error', error);
       }
-    } catch (error) {
-      console.log('error', error);
+    }
+    
+    if (id) {
+      getUpdate(id);
     }
   }
 
@@ -149,7 +148,7 @@ const Question = ({ question, onDelete }: { question: Question; onDelete: () => 
         </button>
       </div>
     </li>
-  )
+  );
 }
 
 const Alert = ({ text }: { text: string }) => (
