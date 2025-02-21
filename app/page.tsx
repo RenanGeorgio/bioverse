@@ -46,12 +46,6 @@ function Home({ client }: Props) {
               Logout
             </button>
           </div>
-        ) : (
-          <div
-            className="w-full h-full flex flex-col justify-center items-center p-4"
-            style={{ minWidth: 250, maxWidth: 600, margin: 'auto' }}
-          >
-          </div>
         )}
       </div>
     </>
