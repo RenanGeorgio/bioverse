@@ -5,11 +5,11 @@ import { Database } from '@/lib/schema';
 type Question = Database['public']['Tables']['todos']['Row'];
 
 type Props = {
-    questions: Question[] | null;
-    error?: PostgrestError | null;
+  questions: Question[] | null;
+  error?: PostgrestError | null;
 }
 
-type QuestionsProps = (supabase: SupabaseClient) => Promise<Props>
+type QuestionsProps = (supabase: SupabaseClient) => Promise<Props>;
 
 
 export const getUser = cache(async (supabase: SupabaseClient) => {

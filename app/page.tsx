@@ -11,13 +11,13 @@ import QuestionList from '@/components/QuestionList';
 import '@/styles/app.css';
 
 interface Props {
-  supabase: Promise<SupabaseClient>;
   client: User | undefined | null;
+  supabase?: Promise<SupabaseClient>;
   children?: React.ReactNode
 }
 
 
-function Home({ supabase, client }: Props) {
+function Home({ client }: Props) {
   return (
     <>
       <Head>
@@ -47,7 +47,7 @@ function Home({ supabase, client }: Props) {
             <button
               className="btn-black w-full mt-12"
               onClick={async () => {
-                const { error } = await supabase.auth.signOut();
+                const { error } = await supabaseClient.auth.signOut();
 
                 if (error) {
                   console.log('Error logging out:', error.message);
@@ -74,6 +74,6 @@ export default async function App() {
   } = await supabase.auth.getUser();
 
   return (
-    <Home supabase={supabase} client={user} />
+    <Home client={user} />
   );
 }
