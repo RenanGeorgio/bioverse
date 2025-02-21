@@ -1,23 +1,25 @@
 import Head from 'next/head';
-import { Auth } from '@supabase/auth-ui-react';
-import { User } from '@supabase/supabase-js';
-import { SupabaseClient } from '@supabase/supabase-js';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
+//import { Auth } from '@supabase/auth-ui-react';
+//import { User } from '@supabase/supabase-js';
+//import { SupabaseClient } from '@supabase/supabase-js';
+//import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { createClient } from '@/lib/supabase/server';
 import { supabase as supabaseClient } from '@/lib/supabase/init';
 //import { supabase } from '@/lib/initSupabase';
 import QuestionList from '@/components/QuestionList';
 
 import '@/styles/app.css';
+  
 
-interface Props {
-  client: User | undefined | null;
-  supabase?: Promise<SupabaseClient>;
-  children?: React.ReactNode
-}
+export default async function App() {
+  const supabase = createClient();
+  
+  const {
+    data: { user }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+  } = await supabase.auth.getUser();
 
-
-function Home({ client }: Props) {
   return (
     <>
       <Head>
@@ -32,11 +34,11 @@ function Home({ client }: Props) {
             className="w-full h-full flex flex-col justify-center items-center p-4"
             style={{ minWidth: 250, maxWidth: 600, margin: 'auto' }}
           >
-            <QuestionList user={client} />
+            <QuestionList user={user} />
             <button
               className="btn-black w-full mt-12"
               onClick={async () => {
-                const { error } = await supabaseClient.auth.signOut();
+                const { error } = await supabaseClient?.auth?.signOut();
 
                 if (error) {
                   console.log('Error logging out:', error.message);
@@ -49,20 +51,5 @@ function Home({ client }: Props) {
         )}
       </div>
     </>
-  );
-}
-  
-
-export default async function App() {
-  const supabase = createClient();
-  
-  const {
-    data: { user }
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-  } = await supabase.auth.getUser();
-
-  return (
-    <Home client={user} />
   );
 }
