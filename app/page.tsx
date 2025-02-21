@@ -29,7 +29,7 @@ export default async function App() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="w-full h-full bg-200">
-        {client && (
+        {user && (
           <div
             className="w-full h-full flex flex-col justify-center items-center p-4"
             style={{ minWidth: 250, maxWidth: 600, margin: 'auto' }}
