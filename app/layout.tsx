@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 //import { Geist, Geist_Mono } from 'next/font/google';
 import { getURL } from '@/utils/helpers';
 import Footer from '@/components/Footer';
-//import Navbar from '@/components/Navbar';
+import Navbar from '@/components/Navbar';
 
 import './globals.css';
 
@@ -41,7 +41,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      {/*<Navbar />*/}
+      <Navbar />
       <main
           id="skip"
           className="min-h-[calc(100dvh-4rem)] md:min-h[calc(100dvh-5rem)]"
