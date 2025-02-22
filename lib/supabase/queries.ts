@@ -1,5 +1,5 @@
 import { cache } from 'react';
-import { SupabaseClient, PostgrestError } from '@supabase/supabase-js';
+import { SupabaseClient, PostgrestError, User } from '@supabase/supabase-js';
 import { Database } from '@/lib/schema';
 
 type Question = Database['public']['Tables']['todos']['Row'];
@@ -11,11 +11,13 @@ type Props = {
 
 type QuestionsProps = (supabase: SupabaseClient) => Promise<Props>;
 
+type UserProps = (supabase: SupabaseClient) => Promise<User | undefined | null>;
 
-export const getUser = cache(async (supabase: SupabaseClient) => {
+
+export const getUser: UserProps = cache(async (supabase: SupabaseClient) => {
   const {
     data: { user }
-  } = await supabase.auth.getUser();
+  } = await supabase?.auth?.getUser();
 
   return user;
 });

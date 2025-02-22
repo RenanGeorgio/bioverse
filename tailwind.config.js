@@ -1,10 +1,11 @@
-import type { Config } from "tailwindcss";
+const { fontFamily } = require('tailwindcss/defaultTheme');
 
-export default {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -16,4 +17,4 @@ export default {
   },
   variants: {},
   plugins: [],
-} satisfies Config;
+};

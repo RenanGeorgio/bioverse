@@ -4,6 +4,7 @@ import Head from 'next/head';
 //import { SupabaseClient } from '@supabase/supabase-js';
 //import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { createClient } from '@/lib/supabase/server';
+import { getUser } from '@/lib/supabase/queries';
 import { supabase as supabaseClient } from '@/lib/supabase/init';
 //import { supabase } from '@/lib/initSupabase';
 import QuestionList from '@/components/QuestionList';
@@ -13,12 +14,7 @@ import '@/styles/app.css';
 
 export default async function App() {
   const supabase = createClient();
-  
-  const {
-    data: { user }
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-  } = await supabase.auth.getUser();
+  const [user] = await Promise.all([getUser(supabase)]);
 
   return (
     <>
