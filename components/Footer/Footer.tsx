@@ -14,7 +14,7 @@ export default function Footer() {
             className="flex items-center flex-initial font-bold md:mr-24"
           >
             <span className="mr-2 border rounded-full border-zinc-700">
-              <Logo />
+            <Logo width="32px" height="32px" />
             </span>
             <span>Bioverse</span>
           </Link>
