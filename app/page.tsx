@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import Head from 'next/head';
 //import { Auth } from '@supabase/auth-ui-react';
 //import { User } from '@supabase/supabase-js';
@@ -13,9 +14,14 @@ import '@/styles/app.css';
 
 export default async function App() {
   const supabase = await createClient();
+
   const {
     data: { user }
   } = await supabase.auth.getUser();
+
+  if (!user) {
+    return redirect('/signin');
+  }
 
   return (
     <>
