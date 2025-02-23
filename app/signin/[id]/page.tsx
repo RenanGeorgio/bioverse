@@ -12,6 +12,9 @@ export default async function SignIn({
   params: { id: string };
   searchParams: { disable_button: boolean };
 }) {
+  // Check if the user is already logged in and redirect to the account page if so
+  const supabase = await createClient();
+  
   const viewTypes = getViewTypes();
 
   // Declare 'viewProp' and initialize with the default value
@@ -23,11 +26,9 @@ export default async function SignIn({
   } else {
     const preferredSignInView = cookies().get('preferredSignInView')?.value || null;
     viewProp = getDefaultSignInView(preferredSignInView);
+
     return redirect(`/signin/${viewProp}`);
   }
-
-  // Check if the user is already logged in and redirect to the account page if so
-  const supabase = createClient();
 
   const {
     data: { user }

@@ -5,8 +5,8 @@ import { cookies } from 'next/headers';
 import { Database } from '@/lib/schema';
 
 
-export const createClient = () => {
-  const cookieStore = cookies();
+export const createClient = async () => {
+  const cookieStore = await cookies();
 
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
