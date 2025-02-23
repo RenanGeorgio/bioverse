@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { User } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/client';
 import { Database } from '@/lib/schema';
@@ -12,30 +12,16 @@ type Question = Database['public']['Tables']['todos']['Row']
 export default function QuestionList({ user }: { user: User }) {
   const supabase = createClient();
 
+  const userRef = useRef<User>(user);
+
   const [questions, setQuestions] = useState<Question[]>([]);
   const [newTaskText, setNewTaskText] = useState('');
   const [errorText, setErrorText] = useState('');
 
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      const { questions, error } = await getQuestions(supabase);
-
-      if (error) {
-        console.log('error', error);
-      } else {
-        if (questions) {
-          setQuestions(questions);
-        }
-      }
-    }
-
-    fetchQuestions();
-  }, [supabase]);
-
   const addQuestion = async (taskText: string) => {
     const task = taskText.trim();
-    if (task.length) {
-      const { todo, error } = await addQuestions(supabase, task, user.id);
+    if ((task.length) && (userRef.current)) {
+      const { todo, error } = await addQuestions(supabase, task, userRef.current?.id);
 
       if (error) {
         setErrorText(error.message);
@@ -54,6 +40,35 @@ export default function QuestionList({ user }: { user: User }) {
       console.log('error', error);
     }
   }
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const {
+        data: { user }
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        userRef.current = user as User;
+      }
+    }
+
+    const fetchQuestions = async () => {
+      const { questions, error } = await getQuestions(supabase);
+
+      if (error) {
+        console.log('error', error);
+      } else {
+        if (questions) {
+          setQuestions(questions);
+        }
+      }
+    }
+
+    if (supabase) {
+      fetchUser();
+      fetchQuestions();
+    }
+  }, [supabase]);
 
   return (
     <div className="w-full">

@@ -5,7 +5,7 @@ import Head from 'next/head';
 //import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { createClient } from '@/lib/supabase/server';
 //import { getUser } from '@/lib/supabase/queries';
-import { supabase as supabaseClient } from '@/lib/supabase/init';
+//import { supabase as supabaseClient } from '@/lib/supabase/init';
 import QuestionList from '@/components/QuestionList';
 
 import '@/styles/app.css';
@@ -32,18 +32,6 @@ export default async function App() {
             style={{ minWidth: 250, maxWidth: 600, margin: 'auto' }}
           >
             <QuestionList user={user} />
-            <button
-              className="btn-black w-full mt-12"
-              onClick={async () => {
-                const { error } = await supabaseClient?.auth?.signOut();
-
-                if (error) {
-                  console.log('Error logging out:', error.message);
-                }
-              }}
-            >
-              Logout
-            </button>
           </div>
         )}
       </div>
