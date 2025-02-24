@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react';
 import type { Metadata } from 'next';
 //import { Geist, Geist_Mono } from 'next/font/google';
+import { AppProvider } from '@/contexts';
 import { getURL } from '@/utils/helpers';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
@@ -41,14 +42,16 @@ export default async function RootLayout({ children }: PropsWithChildren) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <Navbar />
-      <main
-          id="skip"
-          className="min-h-[calc(100dvh-4rem)] md:min-h[calc(100dvh-5rem)]"
-        >
-        {children}
-	    </main>
+      <AppProvider>
+        <Navbar />
+        <main
+            id="skip"
+            className="min-h-[calc(100dvh-4rem)] md:min-h[calc(100dvh-5rem)]"
+          >
+          {children}
+        </main>
         <Footer />
+      </AppProvider>
       </body>
     </html>
   );
