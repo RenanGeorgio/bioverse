@@ -11,7 +11,7 @@ export default function SignIn() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="w-full h-full bg-200">
+      <div className="w-full bg-200">
         <Signin />
       </div>
     </>

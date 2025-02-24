@@ -25,7 +25,7 @@ export default function Navlinks({ user }: NavlinksProps) {
         </Link>
         <nav className="ml-6 space-x-2 lg:block">
           <Link href="/" className={s.link}>
-            Pricing
+            Questions
           </Link>
           {user && (
             <Link href="/account" className={s.link}>
