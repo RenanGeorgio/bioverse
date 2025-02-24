@@ -20,16 +20,9 @@ export default function Footer() {
           </Link>
         </div>
         <div className="col-span-1 lg:col-span-2">
-          <ul className="flex flex-col flex-initial md:flex-1">
-            <li className="py-3 md:py-0 md:pb-4">
-              <Link
-                href="/"
-                className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
-              >
-                Home
-              </Link>
-            </li>
-          </ul>
+          <span>
+            &copy; {new Date().getFullYear()} RenanGeorgio, Inc. All rights reserved.
+          </span>
         </div>
         <div className="flex items-start col-span-1 text-white lg:col-span-6 lg:justify-end">
           <div className="flex items-center h-10 space-x-6">
@@ -40,13 +33,6 @@ export default function Footer() {
               <GitHub />
             </a>
           </div>
-        </div>
-      </div>
-      <div className="flex flex-col items-center justify-between py-12 space-y-4 md:flex-row bg-zinc-900">
-        <div>
-          <span>
-            &copy; {new Date().getFullYear()} RenanGeorgio, Inc. All rights reserved.
-          </span>
         </div>
       </div>
     </footer>
