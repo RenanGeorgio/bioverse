@@ -12,7 +12,7 @@ export default function Signin() {
     const u: AppUser = {
       name: name,
       email: email,
-      id: string | number;
+      id: undefined,
       is_admin: admin,
     };
 

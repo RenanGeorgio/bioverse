@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import AppContext from '../AppContext';
+import { getUser } from '@/controllers/user';
 import { AppUser } from '../types';
 
 const AppProvider = () => {
@@ -12,7 +13,15 @@ const AppProvider = () => {
     }
 
     useEffect(() => {
+        const initUser = async () => {
+            const user =  await getUser();
 
+            if (user != null) {
+                setCurrentUser(user);
+            }
+        }
+
+        initUser();
     },[]);
 
     return (
