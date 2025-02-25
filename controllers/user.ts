@@ -7,3 +7,15 @@ export async function getUser() {
 
     return null;
 }
+
+export async function setUser(name: string, email: string) {
+    const response = await fetch('/api/user',
+        method: 'POST',
+        {
+            name: name,
+            email: email,
+            id: string | number;
+            is_admin: boolean;
+        }
+    );
+}

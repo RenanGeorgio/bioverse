@@ -11,12 +11,16 @@ export default async function handler(
 ) {
   const cookieStore = await cookies();
 
-  const hasCookie = cookieStore.has('user');
+  if (req.method === 'GET') {
+    const hasCookie = cookieStore.has('user');
 
-  if (hasCookie) {
-    const user = cookieStore.get('user');
-    res.status(200).json({ user });
-  } else {
-    res.status(200).json({ user: null });
+    if (hasCookie) {
+      const user = cookieStore.get('user');
+      res.status(200).json({ user });
+    } else {
+      res.status(200).json({ user: null });
+    }
+  } if else (req.method === 'POST') {
+    const user = req.body;
   }
 }
