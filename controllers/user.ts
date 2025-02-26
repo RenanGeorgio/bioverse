@@ -3,6 +3,7 @@ export async function getUser() {
 
     if (response) {
         const value = await response.json();
+        return value;
     }
 
     return null;

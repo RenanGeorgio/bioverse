@@ -7,5 +7,5 @@ export type AppUser = {
 
 export interface AppContextInterface {
     currentUser: AppUser | undefined;
-    updateUser: (user: AppUser) => void;
+    updateUser: (user: AppUser) => Promise<void>;
 }

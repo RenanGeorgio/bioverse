@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+
 type Data = {
   name: string
 }
@@ -16,11 +17,22 @@ export default async function handler(
 
     if (hasCookie) {
       const user = cookieStore.get('user');
-      res.status(200).json({ user });
+      return res.status(200).json({ user });
     } else {
-      res.status(200).json({ user: null });
+      return res.status(200).json({ user: null });
     }
   } if else (req.method === 'POST') {
     const user = req.body;
+
+    if (!user) {
+      return res.status(200).json({ user: null }); // mudar codigo de retorno
+    }
+
+    cookieStore.set({
+      name: 'user',
+      value: JSON.stringify(user)
+    });
+
+    return res.status(200).json({ user: null }); // mudar codigo de retorno
   }
 }
