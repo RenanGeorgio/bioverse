@@ -9,6 +9,10 @@ export default function Signin() {
   const { updateUser } = useUser();
 
   const submitContent = (name: string, email: string, admin: boolean) => {
+    const sendToUpdate =  async (user: AppUser) => {
+      await updateUser(user);
+    }
+
     const u: AppUser = {
       name: name,
       email: email,
@@ -16,7 +20,7 @@ export default function Signin() {
       is_admin: admin,
     };
 
-    updateUser(u);
+    sendToUpdate(u);
   }
 
   return (

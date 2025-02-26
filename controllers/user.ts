@@ -19,4 +19,20 @@ export async function setUser(name: string, email: string) {
             is_admin: boolean;
         }
     );
+
+    if (response.status == 200) {
+        return true;
+    }
+
+    return false;
+}
+
+export async function cleanUser() {
+    const response = await fetch('/api/user', method: 'DELETE');
+    
+    if (response.status == 200) {
+        return true;
+    }
+
+    return false;
 }

@@ -34,5 +34,8 @@ export default async function handler(
     });
 
     return res.status(200).json({ user: null }); // mudar codigo de retorno
+  } if else (req.method === 'DELETE') {
+    cookieStore.delete('user');
+    return res.status(200).json({ user: null }); // mudar codigo de retorno
   }
 }
