@@ -12,6 +12,7 @@ export default function Form({ onSubmit }: FormProps) {
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [admin, setAdmin] = useState<boolean>(false);
+    const [isEnabled, setIsEnabled] = useState<boolean>(false);
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e?.preventDefault();
@@ -27,7 +28,7 @@ export default function Form({ onSubmit }: FormProps) {
                 <button
                     type="submit"
                     className="form-submit-button"
-                    disabled={disabled}
+                    disabled={isEnabled}
                 >
                     Submit
                 </button>
