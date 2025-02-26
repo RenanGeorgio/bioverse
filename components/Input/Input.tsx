@@ -1,8 +1,12 @@
 import { forwardRef } from 'react';
-import { cn } from '@/utils/cn';
-
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
+}
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
