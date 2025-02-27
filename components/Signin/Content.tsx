@@ -12,7 +12,7 @@ type Data = {
 interface Props {
     handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
     currentData: Data | undefined;
-    control?: unknow;
+    control?: string | number | readonly string[];
 }
 
 export default function Content({ handleChange, currentData, control }: Props) {

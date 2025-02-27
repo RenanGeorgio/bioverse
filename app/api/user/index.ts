@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { AppUser } from '@/contexts/types';
 
 
 type Data = {
@@ -8,7 +9,7 @@ type Data = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data | AppUser>
 ) {
   const cookieStore = await cookies();
 
@@ -17,15 +18,19 @@ export default async function handler(
 
     if (hasCookie) {
       const user = cookieStore.get('user');
-      return res.status(200).json({ user });
+      if (user) {
+        return res.status(200).json(user);
+      } else {
+        return res.status(200);
+      }
     } else {
-      return res.status(200).json({ user: null });
+      return res.status(200);
     }
-  } if else (req.method === 'POST') {
+  } else if (req.method === 'POST') {
     const user = req.body;
 
     if (!user) {
-      return res.status(200).json({ user: null }); // mudar codigo de retorno
+      return res.status(200); // mudar codigo de retorno
     }
 
     cookieStore.set({
@@ -33,9 +38,9 @@ export default async function handler(
       value: JSON.stringify(user)
     });
 
-    return res.status(200).json({ user: null }); // mudar codigo de retorno
-  } if else (req.method === 'DELETE') {
+    return res.status(200);
+  } else if (req.method === 'DELETE') {
     cookieStore.delete('user');
-    return res.status(200).json({ user: null }); // mudar codigo de retorno
+    return res.status(200);
   }
 }

@@ -27,14 +27,13 @@ export async function hasUser(name: string, email: string) {
     return null;
 }
 
-export async function setUser({ name, email, id, admin }: AppUser) {
-    const response = await fetch('/api/user',
-        method: 'POST',
+export async function setUser({ name, email, id, is_admin }: AppUser) {
+    const response = await fetch.post('/api/user',
         {
             name: name,
             email: email,
             id: id,
-            is_admin: admin,
+            is_admin: is_admin,
         }
     );
 
@@ -46,7 +45,7 @@ export async function setUser({ name, email, id, admin }: AppUser) {
 }
 
 export async function cleanUser() {
-    const response = await fetch('/api/user', method: 'DELETE');
+    const response = await fetch.delete('/api/user');
     
     if (response.status == 200) {
         return true;

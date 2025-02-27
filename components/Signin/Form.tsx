@@ -20,17 +20,20 @@ export default function Form({ onSubmit }: FormProps) {
     const [admin, setAdmin] = useState<boolean>(false);
     const [isEnabled, setIsEnabled] = useState<boolean>(false);
 
-    let control: unknow = undefined;
+    let control: string | number | readonly string[] | undefined = undefined;
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e?.preventDefault();
-        const { name, email } = data;
-        onSubmit(name, email, admin);
+
+        if (data) {
+            const { name, email } = data;
+            onSubmit(name, email, admin);
+        }
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setData((prev) => ({
-          ...prev,
+        setData((prev: Data | undefined) => ({
+          ...prev as Data,
           [e.target.name]: e.target.value
         }));
     };

@@ -1,27 +1,27 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, PropsWithChildren } from 'react';
 import AppContext from '../AppContext';
 import { createClient } from '@/lib/supabase/client';
-import { getUser, setUser, cleanUser } from '@/controllers/user';
+import { getUser, setUser, cleanUser, hasUser } from '@/controllers/user';
 import { generateId } from '@/utils/helpers';
 import { AppUser } from '../types';
 
 
-const AppProvider = () => {
+const AppProvider = ({ children }: PropsWithChildren) => {
     const [currentUser, setCurrentUser] = useState<AppUser | undefined>(undefined);
 
     const updateUser = async (u: AppUser) => {
-        const { name, email, admin } = u;
+        const { name, email, is_admin } = u;
 
         const initUser = await hasUser(name, email);
 
         const id = initUser?.id != null ? initUser.id : generateId(name, email);
-        const value = await setUser({ name, email, admin, id });
+        const value = await setUser({ name, email, is_admin, id });
         if (value) {
             const supabase = createClient();
             const { data } = await supabase.auth.signInAnonymously();
-            setCurrentUser({ name, email, admin, id });
+            setCurrentUser({ name, email, is_admin, id });
         }
     }
 
