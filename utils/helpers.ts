@@ -84,3 +84,13 @@ export const getErrorRedirect = (
     disableButton,
     arbitraryParams
   );
+
+export function isValidEmail(email: string) {
+  var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  return regex.test(email);
+}
+
+export function generateId(name: string, email: string): string {
+  const value = name + "_" + email;
+  return value;
+}

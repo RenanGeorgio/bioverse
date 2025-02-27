@@ -30,7 +30,7 @@ export default function Content({ handleChange, currentData, control }: Props) {
                     placeholder="Full name"
                     className="form-input"
                     required
-                    value={currentData.name}
+                    value={currentData?.name}
                     onChange={handleChange}
                 />
             </div>
@@ -43,7 +43,7 @@ export default function Content({ handleChange, currentData, control }: Props) {
                     placeholder="name@provider.com"
                     className="form-input"
                     required
-                    value={currentData.email}
+                    value={currentData?.email}
                     onChange={handleChange}
                 />
             </div>

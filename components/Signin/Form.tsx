@@ -2,7 +2,9 @@
 
 import { useEffect, useState, FormEvent, ChangeEvent } from 'react';
 import Content from './Content';
+import ToggleSwitch from '@/components/ToggleSwitch';
 import './Form.module.css';
+
 
 type Data = {
     name: string;
@@ -22,15 +24,31 @@ export default function Form({ onSubmit }: FormProps) {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e?.preventDefault();
-        onSubmit(name, email);
+        const { name, email } = data;
+        onSubmit(name, email, admin);
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setFormData((prev) => ({
+        setData((prev) => ({
           ...prev,
-          [e.target.name]: e.target.value, // Update the corresponding field dynamically
+          [e.target.name]: e.target.value
         }));
     };
+
+    useEffect(() => {
+        if (data) {
+            const { name, email } = data;
+
+            if ((name.length > 0) && (email.length > 0)) {
+                setIsEnabled(true);
+            } else {
+                setIsEnabled(false);
+            }
+        } else {
+            setIsEnabled(false);
+        }
+
+    },[data]);
 
     return (
         <div className="modal-form">
@@ -46,6 +64,7 @@ export default function Form({ onSubmit }: FormProps) {
                     Submit
                 </button>
             </form>
+            <ToggleSwitch checked={admin} onChange={setAdmin} />
         </div>
     );
 }

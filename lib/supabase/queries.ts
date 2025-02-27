@@ -52,3 +52,14 @@ export const updateQuestion = cache(async (supabase: SupabaseClient, isCompleted
   
     return data;
 });
+
+export const checkUser = cache(async (supabase: SupabaseClient, name: string, email: string) => {
+  const { data: user } = await supabase
+    .from('users')
+    .select('*')
+    .eq('name', name)
+    .eq('email', email)
+    .single();
+
+  return user;
+});

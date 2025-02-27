@@ -1,3 +1,5 @@
+import { AppUser } from '@/contexts/types';
+
 export async function getUser() {
     const response = await fetch('/api/user');
 
@@ -9,14 +11,30 @@ export async function getUser() {
     return null;
 }
 
-export async function setUser(name: string, email: string) {
+export async function hasUser(name: string, email: string) {
+    const response = await fetch(`/api/user/${name}?email=${email}`);
+
+    if (response) {
+        const { user } = await response.json();
+        
+        if (!user) {
+            return null;
+        }
+
+        return user;
+    }
+
+    return null;
+}
+
+export async function setUser({ name, email, id, admin }: AppUser) {
     const response = await fetch('/api/user',
         method: 'POST',
         {
             name: name,
             email: email,
-            id: string | number;
-            is_admin: boolean;
+            id: id,
+            is_admin: admin,
         }
     );
 

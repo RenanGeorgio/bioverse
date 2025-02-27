@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import AppContext from '../AppContext';
+import { createClient } from '@/lib/supabase/client';
 import { getUser, setUser, cleanUser } from '@/controllers/user';
+import { generateId } from '@/utils/helpers';
 import { AppUser } from '../types';
 
 
@@ -10,9 +12,16 @@ const AppProvider = () => {
     const [currentUser, setCurrentUser] = useState<AppUser | undefined>(undefined);
 
     const updateUser = async (u: AppUser) => {
-        const value = await setUser();
+        const { name, email, admin } = u;
+
+        const initUser = await hasUser(name, email);
+
+        const id = initUser?.id != null ? initUser.id : generateId(name, email);
+        const value = await setUser({ name, email, admin, id });
         if (value) {
-            setCurrentUser(u);
+            const supabase = createClient();
+            const { data } = await supabase.auth.signInAnonymously();
+            setCurrentUser({ name, email, admin, id });
         }
     }
 

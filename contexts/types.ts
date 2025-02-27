@@ -1,7 +1,7 @@
 export type AppUser = {
     name: string;
     email: string;
-    id: string | number;
+    id: string | number | undefined;
     is_admin: boolean;
 }
 
