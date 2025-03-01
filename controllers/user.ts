@@ -28,12 +28,15 @@ export async function hasUser(name: string, email: string) {
 }
 
 export async function setUser({ name, email, id, is_admin }: AppUser) {
-    const response = await fetch.post('/api/user',
+    const response = await fetch('/api/user',
         {
-            name: name,
-            email: email,
-            id: id,
-            is_admin: is_admin,
+            method: "POST",
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                id: id,
+                is_admin: is_admin,
+            })
         }
     );
 
@@ -45,7 +48,7 @@ export async function setUser({ name, email, id, is_admin }: AppUser) {
 }
 
 export async function cleanUser() {
-    const response = await fetch.delete('/api/user');
+    const response = await fetch('/api/user', { method: "DELETE" });
     
     if (response.status == 200) {
         return true;
