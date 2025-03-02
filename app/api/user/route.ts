@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase/server';
 //import { AppUser } from '@/contexts/types';
 
 
@@ -37,8 +38,11 @@ export async function POST(req: NextRequest) {
     value: JSON.stringify(user)
   });
 
+  const supabase = await createClient();
+  const { data } = await supabase.auth.signInAnonymously();
+
   return NextResponse.json(
-    { message: "User created successfully" },
+    { message: "User created successfully", data },
     { status: 200 }
   )
 }
