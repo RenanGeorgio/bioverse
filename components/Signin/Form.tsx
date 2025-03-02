@@ -59,15 +59,19 @@ export default function Form({ onSubmit }: FormProps) {
                 <div className="form-content">
                     <Content handleChange={handleChange} currentData={data} control={control} />
                 </div>
-                <button
-                    type="submit"
-                    className="form-submit-button"
-                    disabled={isEnabled}
-                >
-                    Submit
-                </button>
+                <div className="w-full h-full p-5 bg-white shadow flex flex-col text-base">
+                    <button
+                        type="submit"
+                        className="form-submit-button"
+                        disabled={isEnabled}
+                    >
+                        Submit
+                    </button>
+                </div>
             </form>
-            <ToggleSwitch checked={admin} onChange={setAdmin} />
+            <div className="w-full h-full p-5 flex justify-center items-center">
+                <ToggleSwitch checked={admin} onChange={setAdmin} />
+            </div>
         </div>
     );
 }

@@ -6,7 +6,9 @@ interface ToggleSwitchProps {
 const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ checked, onChange }) => {
   return (
     <div className="flex items-center space-x-3">
-      {checked ? 'Admin' : 'User'}
+      <div className="p-1">
+        {checked ? 'Admin ' : 'User '}
+      </div>
       <button
         onClick={() => onChange(!checked)}
         className={`relative w-12 h-6 flex items-center rounded-full transition duration-300 focus:outline-none ${

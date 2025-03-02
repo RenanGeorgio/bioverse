@@ -2,6 +2,7 @@
 
 import { ChangeEvent } from 'react';
 import Input from '@/components/Input';
+import './Form.module.css';
 
 
 type Data = {
