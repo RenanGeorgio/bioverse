@@ -1,25 +1,17 @@
+"use server";
+
 import { redirect } from 'next/navigation';
 import Head from 'next/head';
-//import { Auth } from '@supabase/auth-ui-react';
-//import { User } from '@supabase/supabase-js';
-//import { SupabaseClient } from '@supabase/supabase-js';
-//import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { createClient } from '@/lib/supabase/server';
-//import { getUser } from '@/lib/supabase/queries';
-//import { supabase as supabaseClient } from '@/lib/supabase/init';
+import { useUser } from '@/contexts/hooks';
 import QuestionList from '@/components/QuestionList';
 
 import '@/styles/app.css';
   
 
 export default async function App() {
-  const supabase = await createClient();
+  const { currentUser } = useUser();
 
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
-
-  if (!user) {
+  if (!currentUser) {
     return redirect('/signin');
   }
 
@@ -32,12 +24,12 @@ export default async function App() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="w-full h-full bg-200">
-        {user && (
+        {currentUser && (
           <div
             className="w-full h-full flex flex-col justify-center items-center p-4"
             style={{ minWidth: 250, maxWidth: 600, margin: 'auto' }}
           >
-            <QuestionList user={user} />
+            <QuestionList />
           </div>
         )}
       </div>

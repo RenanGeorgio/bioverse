@@ -5,14 +5,15 @@ import { User } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/client';
 import { Database } from '@/lib/schema';
 import { getQuestions, addQuestions, updateQuestion } from '@/lib/supabase/queries';
+//import { AppUser } from '@/contexts/types';
 
 type Question = Database['public']['Tables']['todos']['Row']
 
 
-export default function QuestionList({ user }: { user: User }) {
+export default function QuestionList() {
   const supabase = createClient();
 
-  const userRef = useRef<User>(user);
+  const userRef = useRef<User>();
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [newTaskText, setNewTaskText] = useState('');
