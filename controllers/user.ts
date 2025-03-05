@@ -14,6 +14,8 @@ export async function getUser() {
 }
 
 export async function hasUser(name: string, email: string) {
+    console.log(name)
+    console.log(email)
     const response = await fetch(getURL(`/api/user/${name}?email=${email}`));
 
     if (response?.status == 200) {

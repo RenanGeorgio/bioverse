@@ -10,16 +10,17 @@ import { AppUser } from '../types';
 
 
 const AppProvider = ({ children }: PropsWithChildren) => {
+    const router = getRedirectMethod() === 'client' ? useRouter() : null;
+
     const [currentUser, setCurrentUser] = useState<AppUser | undefined>(undefined);
 
     const updateUser = async (u: AppUser) => {
-        const router = getRedirectMethod() === 'client' ? useRouter() : null;
-
         const { name, email, is_admin } = u;
-
+        console.log(u);
         const initUser = await hasUser(name, email);
 
         const id = initUser?.id != null ? initUser.id : generateId(name, email);
+        console.log(id);
         const value = await setUser({ name, email, is_admin, id });
         if (value && router) {
             setCurrentUser({ name, email, is_admin, id });

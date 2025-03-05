@@ -15,7 +15,7 @@ interface FormProps {
     onSubmit: (name: string, email: string, admin: boolean) => void;
 }
 
-export default function Form({ onSubmit }: FormProps) {
+const Form = ({ onSubmit }: FormProps) => {
     const [data, setData] = useState<Data | undefined>(undefined);
     const [admin, setAdmin] = useState<boolean>(false);
     const [isEnabled, setIsEnabled] = useState<boolean>(false);
@@ -42,7 +42,7 @@ export default function Form({ onSubmit }: FormProps) {
         if (data) {
             const { name, email } = data;
 
-            if ((name.length > 0) && (email.length > 0)) {
+            if ((name?.length > 0) && (email?.length > 0)) {
                 setIsEnabled(true);
             } else {
                 setIsEnabled(false);
@@ -75,3 +75,5 @@ export default function Form({ onSubmit }: FormProps) {
         </div>
     );
 }
+
+export default Form;

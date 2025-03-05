@@ -5,14 +5,14 @@ import Form from './Form';
 import { AppUser } from '@/contexts/types';
 
 
-export default function Signin() {
+const Signin = () => {
   const { updateUser } = useUser();
 
-  const submitContent = (name: string, email: string, admin: boolean) => {
-    const sendToUpdate =  async (user: AppUser) => {
-      await updateUser(user);
-    }
+  const sendToUpdate = (user: AppUser) => {
+    updateUser(user);
+  }
 
+  const submitContent = (name: string, email: string, admin: boolean) => {
     const u: AppUser = {
       name: name,
       email: email,
@@ -31,3 +31,5 @@ export default function Signin() {
     </div>
   );
 }
+
+export default Signin;
