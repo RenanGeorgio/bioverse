@@ -1,7 +1,8 @@
+import { getURL } from '@/utils/helpers';
 import { AppUser } from '@/contexts/types';
 
 export async function getUser() {
-    const response = await fetch('/api/user');
+    const response = await fetch(getURL('/api/user'));
 
     if (response) {
         const value = await response.json();
@@ -12,7 +13,7 @@ export async function getUser() {
 }
 
 export async function hasUser(name: string, email: string) {
-    const response = await fetch(`/api/user/${name}?email=${email}`);
+    const response = await fetch(getURL(`/api/user/${name}?email=${email}`));
 
     if (response) {
         const { user } = await response.json();
@@ -28,7 +29,7 @@ export async function hasUser(name: string, email: string) {
 }
 
 export async function setUser({ name, email, id, is_admin }: AppUser) {
-    const response = await fetch('/api/user',
+    const response = await fetch(getURL('/api/user'),
         {
             method: "POST",
             body: JSON.stringify({
@@ -48,7 +49,7 @@ export async function setUser({ name, email, id, is_admin }: AppUser) {
 }
 
 export async function cleanUser() {
-    const response = await fetch('/api/user', { method: "DELETE" });
+    const response = await fetch(getURL('/api/user'), { method: "DELETE" });
     
     if (response.status == 200) {
         return true;

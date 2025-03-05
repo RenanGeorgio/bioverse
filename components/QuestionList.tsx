@@ -9,10 +9,10 @@ import { getQuestions, addQuestions, updateQuestion } from '@/lib/supabase/queri
 type Question = Database['public']['Tables']['todos']['Row']
 
 
-export default function QuestionList({ user }: { user: User }) {
+export default function QuestionList() {
   const supabase = createClient();
 
-  const userRef = useRef<User>(user);
+  const userRef = useRef<User>();
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [newTaskText, setNewTaskText] = useState('');

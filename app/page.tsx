@@ -4,20 +4,17 @@ import Head from 'next/head';
 //import { User } from '@supabase/supabase-js';
 //import { SupabaseClient } from '@supabase/supabase-js';
 //import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { createClient } from '@/lib/supabase/server';
+//import { createClient } from '@/lib/supabase/server';
 //import { getUser } from '@/lib/supabase/queries';
 //import { supabase as supabaseClient } from '@/lib/supabase/init';
+import { getUser } from '@/controllers/user';
 import QuestionList from '@/components/QuestionList';
 
 import '@/styles/app.css';
   
 
 export default async function App() {
-  const supabase = await createClient();
-
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
+  const user =  await getUser();
 
   if (!user) {
     return redirect('/signin');
@@ -37,7 +34,7 @@ export default async function App() {
             className="w-full h-full flex flex-col justify-center items-center p-4"
             style={{ minWidth: 250, maxWidth: 600, margin: 'auto' }}
           >
-            <QuestionList user={user} />
+            <QuestionList />
           </div>
         )}
       </div>
