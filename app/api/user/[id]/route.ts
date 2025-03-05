@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   const email: string | null = searchParams.get('email');
 
   if (!email) {
-    return NextResponse.json({ error: "Missing parametr" }, { status: 404 });
+    return NextResponse.json({ error: "Missing parameter" }, { status: 404 });
   }
 
   const path: string[] = req.nextUrl.pathname.split('/');

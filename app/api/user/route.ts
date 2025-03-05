@@ -16,12 +16,10 @@ export async function GET(req: NextRequest) {
         { message: "User finded successfully", user: user },
         { status: 201 }
       );
-    } else {
-      return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
-  } else {
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
+
+  return NextResponse.json({ error: "Not found" }, { status: 404 });
 }
 
 export async function POST(req: NextRequest) {
@@ -30,15 +28,16 @@ export async function POST(req: NextRequest) {
   const user = req.body;
 
   if (!user) {
-    return NextResponse.json({ error: "Missing parametr" }, { status: 404 });
+    return NextResponse.json({ error: "Missing parameter" }, { status: 404 });
   }
 
+  const supabase = await createClient();
+  
   cookieStore.set({
     name: 'user',
     value: JSON.stringify(user)
   });
 
-  const supabase = await createClient();
   const { data } = await supabase.auth.signInAnonymously();
 
   return NextResponse.json(

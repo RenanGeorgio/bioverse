@@ -1,12 +1,13 @@
 import { getURL } from '@/utils/helpers';
 import { AppUser } from '@/contexts/types';
 
+
 export async function getUser() {
     const response = await fetch(getURL('/api/user'));
-
-    if (response) {
-        const value = await response.json();
-        return value;
+    
+    if (response?.status == 201) {
+        const { user } = await response.json();
+        return user;
     }
 
     return null;
@@ -15,12 +16,8 @@ export async function getUser() {
 export async function hasUser(name: string, email: string) {
     const response = await fetch(getURL(`/api/user/${name}?email=${email}`));
 
-    if (response) {
+    if (response?.status == 200) {
         const { user } = await response.json();
-        
-        if (!user) {
-            return null;
-        }
 
         return user;
     }
@@ -41,17 +38,18 @@ export async function setUser({ name, email, id, is_admin }: AppUser) {
         }
     );
 
-    if (response.status == 200) {
-        return true;
+    if (response?.status == 200) {
+        const { data } = await response.json();
+        return data;
     }
 
-    return false;
+    return null;
 }
 
 export async function cleanUser() {
     const response = await fetch(getURL('/api/user'), { method: "DELETE" });
     
-    if (response.status == 200) {
+    if (response?.status == 204) {
         return true;
     }
 
