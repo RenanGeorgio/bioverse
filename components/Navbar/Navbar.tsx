@@ -4,7 +4,7 @@ import Navlinks from './Navlinks';
 import s from './Navbar.module.css';
 
 
-export default function Navbar() {
+export default async function Navbar() {
   return (
     <nav className={s.root}>
       <a href="#skip" className="sr-only focus:not-sr-only">
