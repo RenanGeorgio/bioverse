@@ -91,6 +91,6 @@ export function isValidEmail(email: string) {
 }
 
 export function generateId(name: string, email: string): string {
-  const value = name.trim().replace(" ", "") + "_" + email;
+  const value = name.trim().replaceAll(" ", "") + "_" + email;
   return value;
 }

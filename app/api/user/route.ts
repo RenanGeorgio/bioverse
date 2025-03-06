@@ -29,8 +29,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing parameter" }, { status: 404 });
   }
 
-  console.log(user)
-
   const supabase = await createClient();
   
   const { data: anon } = await supabase.auth.signInAnonymously();
@@ -40,7 +38,7 @@ export async function POST(req: NextRequest) {
     value: JSON.stringify(user)
   });
 
-  const { data, error } = await supabase.auth.updateUser({ email: "teste@teste.com" })
+  const { data, error } = await supabase.auth.updateUser({ email: user?.email })
 
   return NextResponse.json(
     { message: "User created successfully", data },
