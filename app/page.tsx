@@ -8,7 +8,7 @@ import { createClient } from '@/lib/supabase/server';
 //import { getUser } from '@/lib/supabase/queries';
 //import { supabase as supabaseClient } from '@/lib/supabase/init';
 //import { getUser } from '@/controllers/user';
-import QuestionList from '@/components/QuestionList';
+import QuestionList from '@/components/Questions/QuestionList';
 import { getURL } from '@/utils/helpers';
 
 import '@/styles/app.css';
