@@ -8,7 +8,7 @@ import { createClient } from '@/lib/supabase/server';
 //import { getUser } from '@/lib/supabase/queries';
 //import { supabase as supabaseClient } from '@/lib/supabase/init';
 //import { getUser } from '@/controllers/user';
-import QuestionList from '@/components/Questions/QuestionList';
+import Questionnaires from '@/components/Questionnaires';
 import { getURL } from '@/utils/helpers';
 
 import '@/styles/app.css';
@@ -41,7 +41,7 @@ export default async function App() {
             className="w-full h-full flex flex-col justify-center items-center p-4"
             style={{ minWidth: 250, maxWidth: 600, margin: 'auto' }}
           >
-            <QuestionList />
+            <Questionnaires />
           </div>
         )}
       </div>
