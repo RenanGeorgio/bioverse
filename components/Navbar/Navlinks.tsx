@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useUser } from '@/contexts/hooks';
 import { SignOut } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
 import { getRedirectMethod } from '@/utils/auth-helpers/settings';
@@ -10,11 +11,8 @@ import Logo from '@/components/icons/Logo';
 import s from './Navbar.module.css';
 
 
-interface NavlinksProps {
-  user?: any;
-}
-
-export default function Navlinks({ user }: NavlinksProps) {
+export default function Navlinks() {
+  const { currentUser } = useUser();
   const router = getRedirectMethod() === 'client' ? useRouter() : null;
 
   return (
@@ -25,7 +23,7 @@ export default function Navlinks({ user }: NavlinksProps) {
             <Logo width="64px" height="64px" />
           </Link>
           <nav className="ml-6 space-x-2 lg:block">
-            {user && (
+            {currentUser && (
               <>
                 <Link href="/" className={s.link}>
                   Questions
@@ -38,7 +36,7 @@ export default function Navlinks({ user }: NavlinksProps) {
           </nav>
         </div>
         <div className="flex justify-end space-x-8">
-          {user ? (
+          {currentUser ? (
             <form onSubmit={(e) => handleRequest(e, SignOut, router)}>
               <input type="hidden" name="pathName" value={usePathname()} />
               <button type="submit" className={s.link}>

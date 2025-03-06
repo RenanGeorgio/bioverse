@@ -1,8 +1,6 @@
 import { cookies } from 'next/headers';
-import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-//import { AppUser } from '@/contexts/types';
 
 
 export async function GET(req: NextRequest) {
@@ -25,20 +23,24 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const cookieStore = await cookies();
 
-  const user = req.body;
+  const user = await req.json();
 
   if (!user) {
     return NextResponse.json({ error: "Missing parameter" }, { status: 404 });
   }
 
+  console.log(user)
+
   const supabase = await createClient();
   
+  const { data: anon } = await supabase.auth.signInAnonymously();
+
   cookieStore.set({
     name: 'user',
     value: JSON.stringify(user)
   });
 
-  const { data } = await supabase.auth.signInAnonymously();
+  const { data, error } = await supabase.auth.updateUser({ email: "teste@teste.com" })
 
   return NextResponse.json(
     { message: "User created successfully", data },

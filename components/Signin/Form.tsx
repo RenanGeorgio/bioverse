@@ -50,7 +50,6 @@ const Form = ({ onSubmit }: FormProps) => {
         } else {
             setIsEnabled(false);
         }
-
     },[data]);
 
     return (
@@ -63,7 +62,7 @@ const Form = ({ onSubmit }: FormProps) => {
                     <button
                         type="submit"
                         className="form-submit-button"
-                        disabled={isEnabled}
+                        disabled={!isEnabled}
                     >
                         Submit
                     </button>

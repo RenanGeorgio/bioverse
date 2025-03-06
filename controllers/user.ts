@@ -14,8 +14,6 @@ export async function getUser() {
 }
 
 export async function hasUser(name: string, email: string) {
-    console.log(name)
-    console.log(email)
     const response = await fetch(getURL(`/api/user/${name}?email=${email}`));
 
     if (response?.status == 200) {
@@ -42,6 +40,7 @@ export async function setUser({ name, email, id, is_admin }: AppUser) {
 
     if (response?.status == 200) {
         const { data } = await response.json();
+        console.log(data);
         return data;
     }
 

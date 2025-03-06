@@ -22,9 +22,10 @@ const AppProvider = ({ children }: PropsWithChildren) => {
         const id = initUser?.id != null ? initUser.id : generateId(name, email);
         console.log(id);
         const value = await setUser({ name, email, is_admin, id });
+        console.log(value);
         if (value && router) {
             setCurrentUser({ name, email, is_admin, id });
-
+            console.log(router);
             return router.push('/');
         }
     }
