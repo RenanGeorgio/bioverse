@@ -1,18 +1,18 @@
 "use client";
 
-import Link from 'next/link';
+import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Database } from '@/lib/schema';
 import { updateQuestion } from '@/lib/supabase/queries';
-import { getURL } from '@/utils/helpers';
-
 
 type Question = Database['public']['Tables']['todos']['Row']
 
-const Questionnaire = ({ question, onDelete }: { question: Question; onDelete: () => void }) => {
-  const supabase = createClient();
 
-  /*const toggle = () => {
+const Question = ({ question, onDelete }: { question: Question; onDelete: () => void }) => {
+  const supabase = createClient();
+  const [isCompleted, setIsCompleted] = useState<boolean | null>(question.is_complete);
+
+  const toggle = () => {
     const id: string | number = question.id;
 
     const getUpdate = async (id: string | number) => {
@@ -30,27 +30,27 @@ const Questionnaire = ({ question, onDelete }: { question: Question; onDelete: (
     if (id) {
       getUpdate(id);
     }
-  }*/
+  }
 
   return (
-    <li key={question?.id} className="w-full block cursor-pointer hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition duration-150 ease-in-out"> 
-        <Link 
-          href={{
-            pathname: getURL(`/questionnaire/${question?.id}`),
-            query: { author: question?.user_id },
-          }} 
-          className="flex items-center px-4 py-4 sm:px-6 w-full" 
-          passHref 
-          legacyBehavior
-          >
-            <div className="min-w-0 flex-1 flex items-center">
-                <div className="text-sm leading-5 font-medium truncate">{question?.task}</div>
-            </div>
-        </Link>
+    <li className="w-full block cursor-pointer hover:bg-200 focus:outline-none focus:bg-200 transition duration-150 ease-in-out">
+      <div className="flex items-center px-4 py-4 sm:px-6">
+        <div className="min-w-0 flex-1 flex items-center">
+          <div className="text-sm leading-5 font-medium truncate">{question.task}</div>
+        </div>
+        <div>
+          <input
+            className="cursor-pointer"
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            onChange={(e) => toggle()}
+            type="checkbox"
+            checked={isCompleted ? true : false}
+          />
+        </div>
         <button
           onClick={(e) => {
-            e?.preventDefault();
-            e?.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
             onDelete();
           }}
           className="w-4 h-4 ml-2 border-2 hover:border-black rounded"
@@ -63,8 +63,9 @@ const Questionnaire = ({ question, onDelete }: { question: Question; onDelete: (
             />
           </svg>
         </button>
+      </div>
     </li>
   );
 }
 
-export default Questionnaire;
+export default Question;
