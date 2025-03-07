@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { Database } from '@/lib/schema';
@@ -12,9 +11,8 @@ type Question = Database['public']['Tables']['todos']['Row']
 
 const Questionnaire = ({ question, onDelete }: { question: Question; onDelete: () => void }) => {
   const supabase = createClient();
-  const [isCompleted, setIsCompleted] = useState<boolean | null>(question.is_complete); // TO-DO: Removover isso
 
-  const toggle = () => {
+  /*const toggle = () => {
     const id: string | number = question.id;
 
     const getUpdate = async (id: string | number) => {
@@ -32,24 +30,15 @@ const Questionnaire = ({ question, onDelete }: { question: Question; onDelete: (
     if (id) {
       getUpdate(id);
     }
-  }
+  }*/
 
   return (
-    <li className="w-full block cursor-pointer hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition duration-150 ease-in-out"> 
+    <li key={question.id} className="w-full block cursor-pointer hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition duration-150 ease-in-out"> 
         <Link href={getURL(`/questionnaire/${question.id}`)} className="flex items-center px-4 py-4 sm:px-6 w-full">
             <div className="min-w-0 flex-1 flex items-center">
                 <div className="text-sm leading-5 font-medium truncate">{question.task}</div>
             </div>
         </Link>
-        <div>
-            <input
-            className="cursor-pointer"
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            onChange={(e) => toggle()}
-            type="checkbox"
-            checked={isCompleted ? true : false}
-            />
-        </div>
         <button
           onClick={(e) => {
             e.preventDefault();

@@ -28,6 +28,8 @@ export const getQuestions: QuestionsProps = cache(async (supabase: SupabaseClien
     .select('*')
     .order('id', { ascending: true });
 
+  console.log(questions);
+
   return { questions, error };
 });
 

@@ -1,13 +1,6 @@
 import { redirect } from 'next/navigation';
 import Head from 'next/head';
-//import { Auth } from '@supabase/auth-ui-react';
-//import { User } from '@supabase/supabase-js';
-//import { SupabaseClient } from '@supabase/supabase-js';
-//import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { createClient } from '@/lib/supabase/server';
-//import { getUser } from '@/lib/supabase/queries';
-//import { supabase as supabaseClient } from '@/lib/supabase/init';
-//import { getUser } from '@/controllers/user';
 import Questionnaires from '@/components/Questionnaires';
 import { getURL } from '@/utils/helpers';
 
@@ -20,8 +13,6 @@ export default async function App() {
   const {
     data: { user }
   } = await supabase.auth.getUser();
-
-  console.log(user)
 
   if (!user) {
     return redirect('/signin');
